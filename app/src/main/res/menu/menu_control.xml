@@ -1,0 +1,30 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="hu.esamu.rft.esamurft.ControlActivity">
+    <item
+        android:id="@+id/action_baseview"
+        android:orderInCategory="100"
+        android:title="@string/action_baseview"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_map"
+        android:orderInCategory="100"
+        android:title="@string/action_map"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_quests"
+        android:orderInCategory="100"
+        android:title="@string/action_quests"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_camera"
+        android:orderInCategory="100"
+        android:title="@string/action_camera"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_recipes"
+        android:orderInCategory="100"
+        android:title="@string/action_recipes"
+        app:showAsAction="never" />
+</menu>
