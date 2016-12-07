@@ -133,6 +133,8 @@ public class LoginActivity extends AppCompatActivity implements
                 break;
             case R.id.login_button:
                 textview.setText(userName.getText().toString());
+                LoginActivity.signedIn=true;
+                goMainScreen();
                 break;
             case R.id.reg_button:
 

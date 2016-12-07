@@ -16,8 +16,8 @@
     <string name="title_recipies">RECIPES</string>
     <string name="title_item_list">Items</string>
     <string name="title_item_detail">Item Detail</string>
-    <string name="facebook_app_id">api-key</string>
-    <string name="fb_login_protocol_scheme">"fb"+apy-key</string>
+    <string name="facebook_app_id">231779050576686</string>
+    <string name="fb_login_protocol_scheme">fb231779050576686</string>
     <string name="cancel_Login">Login cancelled.</string>
     <string name="error_Login">Login unsuccessfulled.</string>
     <string name="logout">Logout</string>

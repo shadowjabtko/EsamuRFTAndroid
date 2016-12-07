@@ -3,21 +3,21 @@
 
     <item
         is-multidex="false"
-        jar="C:\android_apps\my_app\EsamuRFTAndroid\app\build\intermediates\exploded-aar\com.android.support\support-compat\25.0.0\jars\libs\internal_impl-25.0.0.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="24.0.3"
-        sha1="f2e3b9bc1ec25f652e8007ce7774c991e38f6a00">
-        <dex dex="C:\android_apps\my_app\EsamuRFTAndroid\app\build\intermediates\pre-dexed\debug\internal_impl-25.0.0_7127f47320637cfde33123cf5ae49aba09446e57.jar" />
-    </item>
-    <item
-        is-multidex="false"
         jar="C:\android_apps\my_app\EsamuRFTAndroid\app\build\intermediates\exploded-aar\com.android.support\animated-vector-drawable\25.0.0\jars\classes.jar"
         jumboMode="false"
         optimize="true"
         revision="24.0.3"
         sha1="53a420cd4f49274db6bd43475f8006ba67ef6bbd">
         <dex dex="C:\android_apps\my_app\EsamuRFTAndroid\app\build\intermediates\pre-dexed\debug\com.android.support-animated-vector-drawable-25.0.0_dad65c9cc9b57c09222a3946583476095a02e846.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\android_apps\my_app\EsamuRFTAndroid\app\build\intermediates\exploded-aar\com.android.support\support-compat\25.0.0\jars\libs\internal_impl-25.0.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="f2e3b9bc1ec25f652e8007ce7774c991e38f6a00">
+        <dex dex="C:\android_apps\my_app\EsamuRFTAndroid\app\build\intermediates\pre-dexed\debug\internal_impl-25.0.0_7127f47320637cfde33123cf5ae49aba09446e57.jar" />
     </item>
     <item
         is-multidex="false"
@@ -399,21 +399,21 @@
     </item>
     <item
         is-multidex="false"
-        jar="C:\Users\ShadowJabtko\.gradle\caches\modules-2\files-2.1\com.google.protobuf\protobuf-java\3.1.0\e13484d9da178399d32d2d27ee21a77cfb4b7873\protobuf-java-3.1.0.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="24.0.3"
-        sha1="e13484d9da178399d32d2d27ee21a77cfb4b7873">
-        <dex dex="C:\android_apps\my_app\EsamuRFTAndroid\app\build\intermediates\pre-dexed\debug\protobuf-java-3.1.0_6916e932363e8030774547776198f474c9387bfb.jar" />
-    </item>
-    <item
-        is-multidex="false"
         jar="C:\android_apps\my_app\EsamuRFTAndroid\app\build\intermediates\exploded-aar\com.android.support\support-core-ui\25.0.0\jars\classes.jar"
         jumboMode="false"
         optimize="true"
         revision="24.0.3"
         sha1="26674000177e45447a0326a6ad84612761199a13">
         <dex dex="C:\android_apps\my_app\EsamuRFTAndroid\app\build\intermediates\pre-dexed\debug\com.android.support-support-core-ui-25.0.0_5862f6ae8c2f66ac35b0d793e45bb18d81251c78.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\ShadowJabtko\.gradle\caches\modules-2\files-2.1\com.google.protobuf\protobuf-java\3.1.0\e13484d9da178399d32d2d27ee21a77cfb4b7873\protobuf-java-3.1.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="e13484d9da178399d32d2d27ee21a77cfb4b7873">
+        <dex dex="C:\android_apps\my_app\EsamuRFTAndroid\app\build\intermediates\pre-dexed\debug\protobuf-java-3.1.0_6916e932363e8030774547776198f474c9387bfb.jar" />
     </item>
     <item
         is-multidex="true"
