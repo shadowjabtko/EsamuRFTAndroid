@@ -14,6 +14,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <uses-feature android:name="android.hardware.location.gps" />
     <uses-feature
@@ -26,6 +27,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity
             android:name=".ControlActivity"
             android:label="@string/app_name"
@@ -48,9 +50,18 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+
         <activity
-            android:name=".MapsActivity"
+            android:name=".map.MapsActivity"
             android:label="@string/title_activity_maps" />
+
+        <activity
+            android:name=".LoginActivity"
+            android:label="@string/action_login">
+        </activity>
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -63,23 +74,28 @@
         </provider>
 
         <activity
-            android:name=".ItemListActivity"
+            android:name=".quests.ItemListActivity"
             android:label="@string/title_item_list"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ItemDetailActivity"
+            android:name=".quests.ItemDetailActivity"
             android:label="@string/title_item_detail"
-            android:parentActivityName=".ItemListActivity"
+            android:parentActivityName=".quests.ItemListActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="hu.esamu.rft.esamurft.ItemListActivity" />
+                android:value="hu.esamu.rft.esamurft.quests.ItemListActivity" />
         </activity>
 
         <service
             android:name=".EsamuRTFService"
             android:enabled="true"
             android:exported="true"></service>
+        <service
+            android:name=".gps.GPSService"
+            android:enabled="true"
+            android:exported="true"/>
     </application>
 
 </manifest>
+

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:layout_centerHorizontal="true"
+    android:layout_centerVertical="false"
+    android:layout_centerInParent="false">
+
+    <TextView
+        android:text="Base"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textViewMenu"
+        android:layout_alignParentTop="true"
+        android:layout_centerInParent="true"
+        android:textSize="36sp" />
+
+    <view
+        android:layout_width="match_parent"
+        class="android.support.v4.view.ViewPager"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/viewPagerGame"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="60dp"
+        android:layout_marginTop="50dp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="false"
+        android:id="@+id/relativeLayout"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="false"
+        android:layout_centerInParent="false">
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_alignParentBottom="true"
+            app:srcCompat="@android:drawable/ic_menu_edit"
+            android:id="@+id/buttonInventory"
+            android:onClick="toInventory"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="false"
+            android:layout_centerHorizontal="false"
+            android:layout_toLeftOf="@+id/buttonMap"/>
+        <ImageButton
+            android:layout_width="wrap_content"
+            app:srcCompat="@android:drawable/ic_menu_mapmode"
+            android:id="@+id/buttonMap"
+            android:layout_alignParentBottom="true"
+            android:layout_toLeftOf="@+id/buttonBase"
+            android:onClick="toMap"
+            android:layout_height="wrap_content" />
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@android:drawable/ic_menu_gallery"
+            android:id="@+id/buttonBase"
+            android:layout_toLeftOf="@+id/textViewCenter"
+            android:layout_alignParentBottom="true"
+            android:onClick="toBase"/>
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@android:drawable/ic_menu_camera"
+            android:id="@+id/buttonCamera"
+            android:layout_alignParentBottom="true"
+            android:layout_toRightOf="@+id/textViewCenter"
+            android:onClick="toCamera"/>
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@android:drawable/star_big_off"
+            android:id="@+id/buttonQuest"
+            android:layout_alignParentBottom="true"
+            android:layout_toRightOf="@+id/buttonCamera"
+            android:onClick="toQuest"/>
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@android:drawable/ic_menu_preferences"
+            android:id="@+id/buttonRecipes"
+            android:layout_alignParentBottom="true"
+            android:layout_toRightOf="@+id/buttonQuest"
+            android:onClick="toRecipes"/>
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@android:drawable/ic_menu_add"
+            android:id="@+id/buttonOptions"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:onClick="toOptions"/>
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@android:drawable/ic_menu_revert"
+            android:id="@+id/buttonLogout"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:onClick="toLogOut"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textViewCenter"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

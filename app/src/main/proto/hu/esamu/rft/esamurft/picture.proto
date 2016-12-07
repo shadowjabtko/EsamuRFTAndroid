@@ -1,0 +1,8 @@
+option java_outer_classname = "ProtoPicture";
+option java_package = "hu.esamu.rft.esamurft";
+
+message Picture {
+	required double latitude = 1;
+    required double longitude = 2;
+    required bytes image = 3;
+}

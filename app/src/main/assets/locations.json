@@ -1,0 +1,49 @@
+{
+  "locations": [
+    {
+      "name" : "Hús",
+      "latitude" : "47.542942",
+      "longitude" : "21.639459"
+    },
+    {
+      "name" : "Víz",
+      "latitude" : "47.543260",
+      "longitude" : "21.640283"
+    },
+    {
+      "name" : "Gabona",
+      "latitude" : "47.545015",
+      "longitude" : "21.640026"
+    },
+    {
+      "name" : "Gyümölcs",
+      "latitude" : "47.545531",
+      "longitude" : "21.640060"
+    },
+    {
+      "name" : "Vas",
+      "latitude" : "47.544516",
+      "longitude" : "21.639070"
+    },
+    {
+      "name" : "Kő",
+      "latitude" : "47.546004",
+      "longitude" : "21.639580"
+    },
+    {
+      "name" : "Vas",
+      "latitude" : "47.541169",
+      "longitude" : "21.639610"
+    },
+    {
+      "name" : "Homok",
+      "latitude" : "47.541514",
+      "longitude" : "21.638607"
+    },
+    {
+      "name" : "Fa",
+      "latitude" : "47.5147245",
+      "longitude" : "21.6370588"
+    }
+  ]
+}
