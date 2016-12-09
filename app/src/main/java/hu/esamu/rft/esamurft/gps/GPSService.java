@@ -46,7 +46,7 @@ public class GPSService extends Service {
     private JSONArray jsonArray;
     private List<RawMaterial> locations;
 
-    final static String MY_ACTION = "MY_ACTION";
+    final static String MY_ACTION = "MY_GPS_ACTION";
 
     @Override
     public void onCreate() {
