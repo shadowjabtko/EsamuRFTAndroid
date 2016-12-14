@@ -44,6 +44,8 @@ public class MapFragment extends Fragment implements
     private static View view;
 
     private IntentFilter intentFilter;
+    final static String MY_ACTION = "MY_GPS_ACTION";
+
 
     public static MapFragment newInstance() {
         return new MapFragment();
@@ -73,7 +75,7 @@ public class MapFragment extends Fragment implements
         mapFragment.getMapAsync(this);
 
         intentFilter = new IntentFilter();
-        intentFilter.addAction("MY_GPS_ACTION");
+        intentFilter.addAction(MY_ACTION);
         getActivity().registerReceiver(broadcastReceiver, intentFilter);
 
         return  view;
@@ -140,10 +142,10 @@ public class MapFragment extends Fragment implements
         @Override
         public void onReceive(Context context, Intent intent) {
             switch (intent.getAction()) {
-                case "MY_GPS_ACTION":
+                case MY_ACTION:
                     Bundle bundle = intent.getParcelableExtra("bundle");
                     updateMyMap((Location)bundle.getParcelable("location"));
-                    Toast.makeText(context, "!!! MAP UPDATED!!!", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(context, "!!! MAP UPDATED!!!", Toast.LENGTH_SHORT).show();
                     break;
                 default:
                     break;

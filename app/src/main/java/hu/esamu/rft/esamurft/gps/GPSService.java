@@ -40,6 +40,8 @@ public class GPSService extends Service {
     private LocationManager locationManager;
     private LocationListener locationListener;
 
+    private NotificationManager notificationManager;
+
     // ezen a távolságon belül ad notificationt (méterben)
     private double maxDistance = 15;
     private JSONObject obj;
@@ -47,11 +49,6 @@ public class GPSService extends Service {
     private List<RawMaterial> locations;
 
     final static String MY_ACTION = "MY_GPS_ACTION";
-
-    @Override
-    public void onCreate() {
-        loadJSON();
-    }
 
     private void loadJSON(){
         locations = new ArrayList<>();
@@ -95,14 +92,15 @@ public class GPSService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Toast.makeText(this, "Szolgáltatás indul...", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, R.string.service_starting, Toast.LENGTH_SHORT).show();
         if (isLocationAvailableAndConnected()) {
             createGPSListener();
-            return START_STICKY;
         } else {
-            Toast.makeText(this, "NINCS GPS?! A szolgáltatás leáll!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.service_start_error_no_gps, Toast.LENGTH_SHORT).show();
             stopSelf();
         }
+        notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        loadJSON();
         return START_STICKY;
     }
 
@@ -125,9 +123,13 @@ public class GPSService extends Service {
             }
 
             public void onProviderEnabled(String provider) {
+                notificationManager.cancel(1);
             }
 
             public void onProviderDisabled(String provider) {
+                Toast.makeText(GPSService.this, R.string.service_running_error_gps_disabled_onthefly, Toast.LENGTH_SHORT).show();
+                startMyNoti(1, "GPS le lett tiltva!", "A GPS le lett tiltva az alkalmazás működése közben. Kellene.");
+                //stopSelf();
             }
         };
 
@@ -135,7 +137,7 @@ public class GPSService extends Service {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
         } else {
-            Toast.makeText(this, "NINCS GPS engedély?! A szolgáltatás leáll!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.service_start_error_no_gps_permission, Toast.LENGTH_SHORT).show();
             stopSelf();
         }
     }
@@ -154,18 +156,7 @@ public class GPSService extends Service {
             double d = distance(location, r.getLocation());
 
             if (d < maxDistance) {
-                Intent intent = new Intent();
-                PendingIntent pIntent = PendingIntent.getActivity(this, 0, intent, 0);
-                Notification noti = new Notification.Builder(this)
-                        .setContentTitle("Nyersanyag!!!")
-                        .setContentText(String.format("%.2f", d) + " méterre van egy " + r.getName() + "!")
-                        .setSmallIcon(R.mipmap.ic_launcher)
-                        .setLights(0xff000000, 500, 500)
-                        .setContentIntent(pIntent).build();
-                noti.flags = Notification.FLAG_AUTO_CANCEL;
-                //noti.defaults = Notification.DEFAULT_VIBRATE;
-                NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-                notificationManager.notify(0, noti);
+                startMyNoti(0, "Nyersanyag!!!", String.format("%.2f", d) + " méterre van egy " + r.getName() + "!");
             }
         }
     }
@@ -183,9 +174,22 @@ public class GPSService extends Service {
             if (locationListener!=null){
                 locationManager.removeUpdates(locationListener);
             }
-        Toast.makeText(this, "Szolgáltatás leállt.", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, R.string.service_stopped, Toast.LENGTH_SHORT).show();
 
-        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        notificationManager.cancel(0);
+        notificationManager.cancelAll();
+    }
+
+    private void startMyNoti(int id, String title, String message){
+        Intent intent = new Intent();
+        PendingIntent pIntent = PendingIntent.getActivity(this, 0, intent, 0);
+        Notification noti = new Notification.Builder(this)
+                .setContentTitle(title)
+                .setContentText(message)
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setLights(0xff000000, 500, 500)
+                .setContentIntent(pIntent).build();
+        noti.flags = Notification.FLAG_AUTO_CANCEL;
+        //noti.defaults = Notification.DEFAULT_VIBRATE;
+        notificationManager.notify(id, noti);
     }
 }
