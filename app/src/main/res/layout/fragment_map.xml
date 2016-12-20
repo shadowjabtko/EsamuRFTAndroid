@@ -33,7 +33,7 @@
     </FrameLayout>
 
     <Button
-        android:text="Navigate to..."
+        android:text="@string/navigate_to"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -42,7 +42,7 @@
         android:layout_centerHorizontal="true" />
 
     <Button
-        android:text="Update resources"
+        android:text="@string/update_resources"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/buttonUpdate"

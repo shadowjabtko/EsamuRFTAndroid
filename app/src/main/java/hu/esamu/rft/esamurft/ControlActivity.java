@@ -40,6 +40,7 @@ public class ControlActivity extends AppCompatActivity implements ActivityCompat
     private MainButtonsManipulator mainButtonsManipulator;
 
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
+    private static final int ASKING_LOCATION_PERMISSION_REQUEST_CODE = 2;
     private boolean mPermissionDenied = false;
     private LocationManager locationManager;
 
@@ -103,11 +104,6 @@ public class ControlActivity extends AppCompatActivity implements ActivityCompat
         });
 
         viewPagerGame.setCurrentItem(MainButtonsManipulator.BASE_POSITION);
-
-        if (mPermissionDenied == false && !isMyServiceRunning(GPSService.class)) {
-            Intent intent = new Intent(this, GPSService.class);
-            startService(intent);
-        }
 
         /*
         * Starting the network service
@@ -203,32 +199,43 @@ public class ControlActivity extends AppCompatActivity implements ActivityCompat
         locationManager  = (LocationManager) getSystemService(LOCATION_SERVICE);
         if(!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("Location Manager");
-            builder.setMessage("Would you like to enable GPS?");
-            builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            builder.setTitle(R.string.dialog_gps_title);
+            builder.setMessage(R.string.dialog_gps_message);
+            builder.setPositiveButton(R.string.dialog_gps_button_poz, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     Intent i = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                    startActivityForResult(i, 666);
+                    startActivityForResult(i, ASKING_LOCATION_PERMISSION_REQUEST_CODE);
                 }
             });
-            builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            builder.setNegativeButton(R.string.dialog_gps_button_neg, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    //No location service, no Activity
+                    Toast.makeText(ControlActivity.this, R.string.dialog_gps_result_neg, Toast.LENGTH_LONG).show();
                     finish();
                 }
             });
             builder.create().show();
+        } else {
+            runMyGPSService();
+        }
+    }
+
+    private void runMyGPSService(){
+        if (!mPermissionDenied && !isMyServiceRunning(GPSService.class)) {
+            Intent intent = new Intent(this, GPSService.class);
+            startService(intent);
         }
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == 666) {
+        if (requestCode == ASKING_LOCATION_PERMISSION_REQUEST_CODE) {
             if(!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-                Toast.makeText(this, "You just escaped the settings, GTFO", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.dialog_gps_result_neg_tricky, Toast.LENGTH_LONG).show();
                 finish();
+            } else {
+                runMyGPSService();
             }
         }
     }
