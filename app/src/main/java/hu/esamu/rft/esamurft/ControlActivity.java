@@ -16,7 +16,11 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.util.TypedValue;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -25,6 +29,7 @@ import android.widget.Toast;
 import com.facebook.AccessToken;
 import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
+import com.google.firebase.auth.FirebaseAuth;
 
 import hu.esamu.rft.esamurft.gps.GPSService;
 import hu.esamu.rft.esamurft.map.MapsActivity;
@@ -44,6 +49,8 @@ public class ControlActivity extends AppCompatActivity implements ActivityCompat
     private boolean mPermissionDenied = false;
     private LocationManager locationManager;
 
+    private FirebaseAuth mAuth;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,11 +59,17 @@ public class ControlActivity extends AppCompatActivity implements ActivityCompat
 
         setContentView(R.layout.activity_game);
 
+        mAuth=FirebaseAuth.getInstance();
+
         enableMyLocation();
 
         if(AccessToken.getCurrentAccessToken() == null && !LoginActivity.signedIn){
             goLoginScreen();
         }
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         final ViewPager viewPagerGame = (ViewPager) findViewById(R.id.viewPagerGame);
         TextView textViewMenu=(TextView)findViewById(R.id.textViewMenu);
@@ -115,6 +128,38 @@ public class ControlActivity extends AppCompatActivity implements ActivityCompat
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_control, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        switch (item.getItemId()) {
+            case (R.id.action_log_out):
+                if (AccessToken.getCurrentAccessToken() != null) {
+                    LoginManager.getInstance().logOut();
+                }
+                else if (LoginActivity.signedIn) {
+                    LoginActivity.signedIn=false;
+                }
+                mAuth.signOut();
+                goLoginScreen();
+                break;
+            case (R.id.action_settings):
+                Toast.makeText(
+                        this,
+                        "Settings button pressed.", Toast.LENGTH_SHORT).show();
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 
     public void toBase(View v){
         ViewPager viewPagerGame = (ViewPager) findViewById(R.id.viewPagerGame);
@@ -146,7 +191,7 @@ public class ControlActivity extends AppCompatActivity implements ActivityCompat
         viewPagerGame.setCurrentItem(MainButtonsManipulator.QUEST_POSITION);
     }
 
-    public void toLogOut(View v){
+    public void toLogout(View v){
         if (AccessToken.getCurrentAccessToken() != null) {
             LoginManager.getInstance().logOut();
         }
@@ -154,12 +199,6 @@ public class ControlActivity extends AppCompatActivity implements ActivityCompat
             LoginActivity.signedIn=false;
         }
         goLoginScreen();
-    }
-
-    public void toOptions(View v){
-        Toast.makeText(
-                this,
-                "Settings button pressed.", Toast.LENGTH_SHORT).show();
     }
 
     public void openMap(View v){

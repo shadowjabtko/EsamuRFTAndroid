@@ -63,6 +63,11 @@
             android:label="@string/action_login">
         </activity>
 
+        <activity
+            android:name=".RegisterActivity"
+            android:label="@string/title_register">
+        </activity>
+
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.example.android.fileprovider"

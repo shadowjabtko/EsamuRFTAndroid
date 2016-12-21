@@ -7,6 +7,12 @@
     android:layout_centerVertical="false"
     android:layout_centerInParent="false">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="@android:color/transparent"/>
+
     <TextView
         android:text="@string/title_base"
         android:layout_width="wrap_content"
@@ -83,24 +89,6 @@
             android:layout_alignParentBottom="true"
             android:layout_toRightOf="@+id/buttonQuest"
             android:onClick="toRecipes"/>
-
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@android:drawable/ic_menu_add"
-            android:id="@+id/buttonOptions"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:onClick="toOptions"/>
-
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@android:drawable/ic_menu_revert"
-            android:id="@+id/buttonLogout"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true"
-            android:onClick="toLogOut"/>
 
         <TextView
             android:layout_width="wrap_content"

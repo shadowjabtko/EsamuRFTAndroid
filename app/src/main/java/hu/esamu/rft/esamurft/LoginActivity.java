@@ -1,9 +1,11 @@
 package hu.esamu.rft.esamurft;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -25,6 +27,10 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.AuthResult;
 
 import org.json.JSONObject;
 
@@ -36,9 +42,14 @@ public class LoginActivity extends AppCompatActivity implements
 
     private LoginButton facebookButton;
     private CallbackManager callbackManager;
-    private EditText userName;
-    private EditText password;
+    private EditText editTextEmail;
+    private EditText editTextPassword;
     private TextView textview;
+
+    private ProgressDialog progressDialog;
+
+    //defining firebaseauth object
+    private FirebaseAuth firebaseAuth;
 
     private static final String TAG = "SignInActivity";
     private static final int RC_SIGN_IN = 9002;
@@ -50,6 +61,9 @@ public class LoginActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        firebaseAuth=FirebaseAuth.getInstance();
+        progressDialog = new ProgressDialog(this);
 
         callbackManager = CallbackManager.Factory.create();
 
@@ -98,10 +112,10 @@ public class LoginActivity extends AppCompatActivity implements
 
         findViewById(R.id.google_button).setOnClickListener(this);
         findViewById(R.id.login_button).setOnClickListener(this);
-        findViewById(R.id.reg_button).setOnClickListener(this);
+        findViewById(R.id.registraiton_button).setOnClickListener(this);
 
-        userName = (EditText)findViewById(R.id.user);
-        password = (EditText)findViewById(R.id.password);
+        editTextEmail = (EditText)findViewById(R.id.user);
+        editTextPassword = (EditText)findViewById(R.id.password);
 
         textview =(TextView) findViewById(R.id.textView5);
     }
@@ -125,6 +139,12 @@ public class LoginActivity extends AppCompatActivity implements
 
     }
 
+    private void goRegistrationScreen(){
+        Intent intent = new Intent(this, RegisterActivity.class);
+        intent.addFlags( intent.FLAG_ACTIVITY_CLEAR_TOP | intent.FLAG_ACTIVITY_CLEAR_TASK | intent.FLAG_ACTIVITY_NEW_TASK );
+        startActivity( intent );
+
+    }
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -132,12 +152,10 @@ public class LoginActivity extends AppCompatActivity implements
                 signIn();
                 break;
             case R.id.login_button:
-                textview.setText(userName.getText().toString());
-                LoginActivity.signedIn=true;
-                goMainScreen();
+                userLogin();
                 break;
-            case R.id.reg_button:
-
+            case R.id.registraiton_button:
+                goRegistrationScreen();
                 break;
         }
     }
@@ -200,28 +218,30 @@ public class LoginActivity extends AppCompatActivity implements
         String personId = person.optString("id");
         String personName = person.optString("name");;
     }
-/*
-    @Override
-    public void onStart() {
-        super.onStart();
 
-        OptionalPendingResult<GoogleSignInResult> opr = Auth.GoogleSignInApi.silentSignIn(mGoogleApiClient);
-        if (opr.isDone()) {
-            // If the user's cached credentials are valid, the OptionalPendingResult will be "done"
-            // and the GoogleSignInResult will be available instantly.
-            Log.d(TAG, "Got cached sign-in");
-            GoogleSignInResult result = opr.get();
-            handleSignInResult(result);
-        } else {
-            // If the user has not previously signed in on this device or the sign-in has expired,
-            // this asynchronous branch will attempt to sign in the user silently.  Cross-device
-            // single sign-on will occur in this branch.
-            opr.setResultCallback(new ResultCallback<GoogleSignInResult>() {
-                @Override
-                public void onResult(GoogleSignInResult googleSignInResult) {
-                    handleSignInResult(googleSignInResult);
-                }
-            });
+    private void userLogin(){
+        String email = editTextEmail.getText().toString().trim();
+        String password = editTextPassword.getText().toString().trim();
+        if(TextUtils.isEmpty(email)){
+            Toast.makeText(this,"Please enter email",Toast.LENGTH_LONG).show();
         }
-    }*/
+        if(TextUtils.isEmpty(password)){
+            Toast.makeText(this,"Please enter editTextPassword",Toast.LENGTH_LONG).show();
+        }
+        progressDialog.setMessage("Authentication is in progress,please wait...");
+        progressDialog.show();
+
+        firebaseAuth.signInWithEmailAndPassword(email,password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        progressDialog.dismiss();
+                        if (task.isSuccessful()){
+                            finish();
+                            LoginActivity.signedIn=true;
+                            goMainScreen();
+                        }
+                    }
+                });
+    }
 }

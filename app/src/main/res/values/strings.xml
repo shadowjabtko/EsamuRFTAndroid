@@ -15,9 +15,12 @@
     <string name="title_base">BÁZIS</string>
     <string name="title_recipies">RECEPTEK</string>
     <string name="title_item_list">TÁRGYAK</string>
+    <string name="title_settings">Beállítások</string>
+    <string name="title_log_out">Kijelentkezés</string>
+    <string name="title_register">REGISZTRÁCIÓ</string>
     <string name="title_item_detail">Item Detail</string>
-    <string name="facebook_app_id">231779050576686</string>
-    <string name="fb_login_protocol_scheme">fb231779050576686</string>
+    <string name="facebook_app_id"></string>
+    <string name="fb_login_protocol_scheme"></string>
     <string name="cancel_Login">Login cancelled.</string>
     <string name="error_Login">Login unsuccessfulled.</string>
     <string name="logout">Logout</string>
@@ -40,4 +43,5 @@
     <string name="upload_photos">Fotók feltöltése</string>
     <string name="navigate_to">Navigálás…</string>
     <string name="update_resources">Nyersanyagok frissítése</string>
+    <string name="button_get_picture">Gather</string>
 </resources>
